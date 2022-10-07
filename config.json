@@ -1,4 +1,4 @@
 {
-    "betterGitSupport": true,
-    "tabSize": 4
+    "newLineSize": 1,
+    "tabSize": 2   
 }

@@ -1,4 +1,4 @@
-from cgitb import text
+#LinterCleanter
 import sys # vi använder detta för att kunna ta in parameter från när vi kör programmet
 import json
 import corrector
@@ -18,14 +18,30 @@ def main():
 
   # json config file
   jsonFile = open("config.json", "r").read()
-  jsonData = json.loads(jsonFile)
+  jsonData = json.loads(jsonFile) # läser in json filen och gör om den till en dictionary
 
  # file to edit
   file = open(sys.argv[1], "r").read()
+  newLineSize = jsonData["newLineSize"]
+  tabSize = jsonData["tabSize"]
 
-  newText = corrector.addNewLines(file)
-  newText = corrector.addSpaceAfterComment(newText)
-  newText = corrector.addSpaceAfterOperator(newText)
+  # implementera argv
+  """override 
+  sys.argv[2] = "new linesize"
+  sys.argv[3] = " new tabsize"
+  om ingen input normal values från json
+  [4] newlinesize = 4
+  problem:
+  hur ska man ställa inn tabs utan att skriva in linesize?
+  Recommend pylint to see errors
+  Using PEP8 as standard
+
+  """
+
+  #kallar på funktionen i corrector.py
+  newText = corrector.addNewLines(file, newLineSize)
+  newText = corrector.addSpaceAfterComment(newText, tabSize)
+  #newText = corrector.addSpaceAfterOperator(newText, newLineSize)
   print(newText)
 
 if __name__ == "__main__":
