@@ -24,7 +24,7 @@ json_data = json.loads(json_file) # läser in json filen och gör om den till en
 file = open(sys.argv[1], "r", encoding="utf-8").read()
 new_line_size = json_data["new_line_size"]
 tab_size = json_data["tab_size"]
-
+  #github test
   # implementera argv
   #override config file
   #sys.argv[2] = "new_line_size"
