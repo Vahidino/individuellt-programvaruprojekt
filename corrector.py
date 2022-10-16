@@ -1,12 +1,18 @@
-def add_new_lines(text, new_line_size):
+import sys
+import main
+import json
+
+def add_new_lines(text, buster):
     """lägger en ny rad efter varje punkt och komma om inte det finns redan en."""
     new_text = ""
-    new_lines = "\n" * new_line_size
-    for i in range(enumerate(text)):
+    new_lines = "\n" * buster
+    for i in range(len(text)):
         if text[i] == "," or text[i] == "." or text[i] == "!" or text[i] == "?":
-            #if text[i+1] != "int" and text[i-1] != int
-            if text[i+1] != "\n":
-                new_text += text[i] + new_lines
+            if text[i+1] != int and text[i-1] != int:
+                if text[i+1] != "\n":
+                    new_text += text[i] + new_lines
+                else:
+                    new_text += text[i]
             else:
                 new_text += text[i]
         else:
@@ -14,12 +20,12 @@ def add_new_lines(text, new_line_size):
     return new_text
 
 
-def add_space_after_comment(text, tab_size):
+def add_space_after_comment(text, custer):
     """lägger till ett mellanslag efter % om det inte finns redan ett mellanslag"""
 
     new_text = ""
-    tab = " " * tab_size
-    for i in range(enumerate(text)):
+    tab = " " * custer
+    for i in range(len(text)):
         if text[i] == "%":
             if text[i+1] != " ":
                 new_text += text[i] + tab
@@ -29,7 +35,8 @@ def add_space_after_comment(text, tab_size):
             new_text += text[i]
     return new_text
 
-def add_space_after_operator(text, new_line_size):
+
+def add_space_after_operator(text, buster):
     """lägger till ett mellanslag efter operatorer om det inte finns redan ett mellanslag"""
         #lägger till ny rad efter operatorer
     start = text.find("\\begin{document}") # indexet för början av texten vi ska ändra
@@ -40,7 +47,7 @@ def add_space_after_operator(text, new_line_size):
 
     new_text = ""
 
-    new_lines = "\n" * new_line_size
+    new_lines = "\n" * buster
 
     for line in lines:
         if "\\" in line:
