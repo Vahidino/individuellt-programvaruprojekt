@@ -22,14 +22,14 @@ def main():
   new_line_size = json_data["new_line_size"]
   tab_size = json_data["tab_size"]
 
-  fileDir = arg.file
+  file_dir = arg.file
 
-  output_file = fileDir.split('.')[0] + '_corrected.' + fileDir.split('.')[1]
+  output_file = file_dir.split('.')[0] + '_corrected.' + file_dir.split('.')[1]
 
   if arg.output:
     output_file = arg.output
 
-  file = open(fileDir, "r", encoding="utf-8").read()
+  file = open(file_dir, "r", encoding="utf-8").read()
 
   #override config file
   if arg.linebreaks:
