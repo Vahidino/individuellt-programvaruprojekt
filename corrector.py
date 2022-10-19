@@ -1,6 +1,7 @@
 import sys
-import main
 import json
+import main
+
 
 def add_new_lines(text, buster):
     """lägger en ny rad efter varje punkt och komma om inte det finns redan en."""
@@ -57,4 +58,4 @@ def add_space_after_operator(text, buster):
             line += new_lines
         new_text += line + "\n"
         new_text = text[:start] + new_text + text[end:]
-        return new_text
+        return 
