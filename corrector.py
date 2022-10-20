@@ -1,6 +1,6 @@
+#pylint: disable=consider-using-enumerate
 import sys
 import json
-import main
 
 
 def add_new_lines(text, buster):
@@ -9,15 +9,19 @@ def add_new_lines(text, buster):
     new_lines = "\n" * buster
     for i in range(len(text)):
         if text[i] == "," or text[i] == "." or text[i] == "!" or text[i] == "?":
-            if text[i+1] != int and text[i-1] != int:
-                if text[i+1] != "\n":
-                    new_text += text[i] + new_lines
-                else:
+            if i+1 < len(text) and text[i+1] != "\n":
+                # check if the element before and after is a number
+                if i-1 > 0 and i+1 < len(text) and text[i-1].isdigit() and text[i+1].isdigit():
                     new_text += text[i]
+                else:
+                    new_text += text[i] + new_lines
             else:
                 new_text += text[i]
         else:
             new_text += text[i]
+
+    new_text = new_text.replace("\n ", "\n")
+
     return new_text
 
 
@@ -37,25 +41,55 @@ def add_space_after_comment(text, custer):
     return new_text
 
 
-def add_space_after_operator(text, buster):
-    """lägger till ett mellanslag efter operatorer om det inte finns redan ett mellanslag"""
-        #lägger till ny rad efter operatorer
-    start = text.find("\\begin{document}") # indexet för början av texten vi ska ändra
-    end = text.find("\\end{document}")  # indexet för slutet av texten vi ska ändra
+def add_new_line_after_sections(text, amountNewLine=1):
+    """Lägger nya rader efter \section blocket"""
+    new_text = ""
+    new_lines = "\n" * (amountNewLine + 1)
+    
+    lines = text.split("\n")
 
-    text_to_edit = text[start:end] # texten vi ska ändra
-    lines = text_to_edit.splitlines() # dela upp texten i en lista med en sträng för varje rad
+    for i in range(len(lines)):
+        if "\\section" in lines[i]:
+            new_text += lines[i] + new_lines
+        else:
+            new_text += lines[i] + "\n"
+    return new_text
+
+def add_new_line_after_chapter(text, amountNewLine=1):
+    """Lägger nya rader efter \chapter blocket"""
+    new_text = ""
+    new_lines = "\n" * (amountNewLine + 1)
+    
+    lines = text.split("\n")
+
+    for i in range(len(lines)):
+        if "\\chapter" in lines[i]:
+            new_text += lines[i] + new_lines
+        else:
+            new_text += lines[i] + "\n"
+    return new_text
+
+def add_tabs_between_env_blocks(text, tab_size = 1):
+    """Lägger till tabbar mellan \begin{[env]} och \end{[env]} men inte i \begin{document} och \end{document}"""
 
     new_text = ""
+    tab = " " * tab_size
+    lines = text.split("\n")
 
-    new_lines = "\n" * buster
+    add_tabs = False
 
-    for line in lines:
-        if "\\" in line:
-            # if the next line is not a \n add a \n
-            next_line = lines[lines.index(line) + 1]
-        if next_line != "":
-            line += new_lines
-        new_text += line + "\n"
-        new_text = text[:start] + new_text + text[end:]
-        return 
+    for i in range(len(lines)):
+        if "\\begin{" in lines[i] and "\\begin{document}" not in lines[i] and not add_tabs:
+            add_tabs = True
+            new_text += lines[i] + "\n"
+            continue
+        if "\\end{" in lines[i] and "\\end{document}" not in lines[i]:
+            add_tabs = False
+        
+        if add_tabs:
+            new_text += tab + lines[i] + "\n"
+        else:   
+            new_text += lines[i] + "\n"
+
+
+    return new_text

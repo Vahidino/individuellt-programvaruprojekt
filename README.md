@@ -1,0 +1,1 @@
+This project will be a linter type program, that will sort and correct files to make it more readable and reducing the risks of bugs and errors.

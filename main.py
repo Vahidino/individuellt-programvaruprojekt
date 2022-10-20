@@ -1,9 +1,8 @@
 import argparse
 import json
-import corrector
+import corrector as corrector
 
 def main():
-
   parser = argparse.ArgumentParser(prog='myprogram',
   description='Lintercleanter.', add_help=False)
 
@@ -39,12 +38,12 @@ def main():
 
   new_text = corrector.add_new_lines(file, new_line_size)
   new_text = corrector.add_space_after_comment(new_text, tab_size)
-  new_text = corrector.add_space_after_operator(new_text, tab_size)
+  new_text = corrector.add_new_line_after_sections(new_text, new_line_size)
+  new_text = corrector.add_new_line_after_chapter(new_text, new_line_size)
+  new_text = corrector.add_tabs_between_env_blocks(new_text, tab_size)
 
   with open(output_file, 'w') as f:
     f.write(new_text)
-    
 
-  
 if __name__ == "__main__":
-    main()
+  main()

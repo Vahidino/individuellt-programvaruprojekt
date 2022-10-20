@@ -1,1 +1,4 @@
 ./__pycache__
+./.eggs
+./build
+./linter_cleanter.egg-info
