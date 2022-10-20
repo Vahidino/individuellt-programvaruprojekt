@@ -1,0 +1,11 @@
+MANIFEST.in
+README.md
+corrector.py
+main.py
+setup.py
+config/config.json
+linter_cleanter.egg-info/PKG-INFO
+linter_cleanter.egg-info/SOURCES.txt
+linter_cleanter.egg-info/dependency_links.txt
+linter_cleanter.egg-info/entry_points.txt
+linter_cleanter.egg-info/top_level.txt
