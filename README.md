@@ -3,6 +3,10 @@
 Linter cleanter is a program to automaticly clean up your LaTex file to be more readable and more git frindly.
 
 ## TOC
+- [Getting started](#getting-started)
+- [Options](#options)
+- [Files](#files)
+- [Installation](#installation)
 
 ## Getting started
 
