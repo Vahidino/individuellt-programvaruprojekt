@@ -48,6 +48,3 @@ def main():
 
   with open(output_file, 'w') as f:
     f.write(new_text)
-
-if __name__ == "__main__":
-  main()
